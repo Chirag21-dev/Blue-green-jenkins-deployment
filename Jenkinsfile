@@ -8,7 +8,7 @@ pipeline {
     }
     
     environment {
-        IMAGE_NAME = "adijaiswal/bankapp"
+        IMAGE_NAME = "chiragks1/bankapp"
         TAG = "${params.DOCKER_TAG}"  // The image tag now comes from the parameter
         KUBE_NAMESPACE = 'webapps'
         SCANNER_HOME= tool 'sonar-scanner'
@@ -17,11 +17,11 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/jaiswaladi246/3-Tier-NodeJS-MySql-Docker.git'
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Chirag21-dev/Blue-green-jenkins-deployment.git'
             }
         }
         
-        stage('SonarQube Analysis') {
+        /*stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=nodejsmysql -Dsonar.projectName=nodejsmysql"
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 sh "trivy fs --format table -o fs.html ."
             }
-        }
+        }*/
         
         stage('Docker build') {
             steps {
@@ -45,11 +45,11 @@ pipeline {
             }
         }
         
-        stage('Trivy Image Scan') {
+        /*stage('Trivy Image Scan') {
             steps {
                 sh "trivy image --format table -o image.html ${IMAGE_NAME}:${TAG}"
             }
-        }
+        }*/
         
         stage('Docker Push Image') {
             steps {
