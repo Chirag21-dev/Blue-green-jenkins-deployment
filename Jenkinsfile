@@ -61,7 +61,7 @@ pipeline {
             }
         }
         
-        stage('Deploy MySQL Deployment and Service') {
+        /*stage('Deploy MySQL Deployment and Service') {
             steps {
                 script {
                     withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://46743932FDE6B34C74566F392E30CABA.gr7.ap-south-1.eks.amazonaws.com') {
@@ -132,6 +132,6 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
     }
 }
