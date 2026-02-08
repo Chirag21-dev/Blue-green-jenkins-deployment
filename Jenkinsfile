@@ -11,7 +11,7 @@ pipeline {
         IMAGE_NAME = "chiragks1/bankapp"
         TAG = "${params.DOCKER_TAG}"  // The image tag now comes from the parameter
         KUBE_NAMESPACE = 'webapps'
-        SCANNER_HOME= tool 'sonar-scanner'
+        /SCANNER_HOME= tool 'sonar-scanner'
     }
 
     stages {
