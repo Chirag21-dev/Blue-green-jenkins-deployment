@@ -23,7 +23,7 @@ pipeline {
                 git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Chirag21-dev/Blue-green-jenkins-deployment.git'
             }
         }
-        stage('Git Checkout') {
+        stage('build stage') {
             steps {
 
                 sh 'mvn package'
