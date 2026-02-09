@@ -74,7 +74,7 @@ pipeline {
         stage('Deploy MySQL Deployment and Service') {
             steps {
                 script {
-                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://8046282AD807888DE98A67693D39C4D5.gr7.us-east-1.eks.amazonaws.com') {
+                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
                         sh "kubectl apply -f mysql-ds.yml -n ${KUBE_NAMESPACE}"  // Ensure you have the MySQL deployment YAML ready
                     }
                 }
@@ -84,7 +84,7 @@ pipeline {
         stage('Deploy SVC-APP') {
             steps {
                 script {
-                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://8046282AD807888DE98A67693D39C4D5.gr7.us-east-1.eks.amazonaws.com') {
+                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
                         sh """ if ! kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}; then
                                 kubectl apply -f bankapp-service.yml -n ${KUBE_NAMESPACE}
                               fi
@@ -104,7 +104,7 @@ pipeline {
                         deploymentFile = 'app-deployment-green.yml'
                     }
 
-                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://8046282AD807888DE98A67693D39C4D5.gr7.us-east-1.eks.amazonaws.com') {
+                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
                         sh "kubectl apply -f ${deploymentFile} -n ${KUBE_NAMESPACE}"
                     }
                 }
@@ -120,7 +120,7 @@ pipeline {
                     def newEnv = params.DEPLOY_ENV
 
                     // Always switch traffic based on DEPLOY_ENV
-                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://46743932FDE6B34C74566F392E30CABA.gr7.ap-south-1.eks.amazonaws.com') {
+                    withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
                         sh '''
                             kubectl patch service bankapp-service -p "{\\"spec\\": {\\"selector\\": {\\"app\\": \\"bankapp\\", \\"version\\": \\"''' + newEnv + '''\\"}}}" -n ${KUBE_NAMESPACE}
                         '''
