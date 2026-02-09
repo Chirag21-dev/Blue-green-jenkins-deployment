@@ -81,7 +81,7 @@ pipeline {
             }
         }
         
-        /*stage('Deploy SVC-APP') {
+        stage('Deploy SVC-APP') {
             steps {
                 script {
                     withKubeConfig(caCertificate: '', clusterName: 'devopsshack-cluster', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
@@ -111,7 +111,7 @@ pipeline {
             }
         }
         
-        stage('Switch Traffic Between Blue & Green Environment') {
+        /*stage('Switch Traffic Between Blue & Green Environment') {
             when {
                 expression { return params.SWITCH_TRAFFIC }
             }
