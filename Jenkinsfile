@@ -7,6 +7,7 @@ pipeline {
         booleanParam(name: 'SWITCH_TRAFFIC', defaultValue: false, description: 'Switch traffic between Blue and Green')
     }
     tools{
+        jdk 'jdk21'
         maven 'maven'
     }
     
