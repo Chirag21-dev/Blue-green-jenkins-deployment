@@ -111,7 +111,7 @@ pipeline {
             }
         }
         
-        */ stage('Switch Traffic Between Blue & Green Environment') {
+        /* stage('Switch Traffic Between Blue & Green Environment') {
             when {
                 expression { return params.SWITCH_TRAFFIC }
             }
