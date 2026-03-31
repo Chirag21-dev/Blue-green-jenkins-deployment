@@ -2,6 +2,12 @@ provider "aws" {
   region = "ap-south-1"
 }
 
+resource "random_string" "suffix" {
+  length  = 6
+  special = false
+}
+
+
 resource "aws_vpc" "devopsshack_vpc" {
   cidr_block = "10.0.0.0/16"
 
@@ -96,6 +102,17 @@ resource "aws_eks_cluster" "devopsshack" {
   }
 }
 
+resource "tls_private_key" "example" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "k8s_keypair" {
+  key_name   = "K8s keypair-${random_string.suffix.result}"
+  public_key = tls_private_key.example.public_key_openssh
+}
+
+
 resource "aws_eks_node_group" "devopsshack" {
   cluster_name    = aws_eks_cluster.devopsshack.name
   node_group_name = "devopsshack-node-group"
@@ -111,7 +128,7 @@ resource "aws_eks_node_group" "devopsshack" {
   instance_types = ["t2.large"]
 
   remote_access {
-    ec2_ssh_key = var.ssh_key_name
+    ec2_ssh_key = aws_key_pair.k8s_keypair.key_name
     source_security_group_ids = [aws_security_group.devopsshack_node_sg.id]
   }
 }
