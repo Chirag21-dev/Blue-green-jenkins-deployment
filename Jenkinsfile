@@ -71,10 +71,10 @@ pipeline {
             }
         }
         
-        /*stage('Deploy MySQL Deployment and Service') {
+        stage('Deploy MySQL Deployment and Service') {
             steps {
                 script {
-                    kubeconfig(credentialsId: 'k8-token', serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
+                    kubeconfig(credentialsId: 'k8-token', serverUrl: 'https://4962222215ED17DD73D52ED636B7E2B4.gr7.ap-south-1.eks.amazonaws.com') {
                         sh "kubectl apply -f mysql-ds.yml -n ${KUBE_NAMESPACE}"  // Ensure you have the MySQL deployment YAML ready
                     }
                 }
@@ -84,7 +84,7 @@ pipeline {
         stage('Deploy SVC-APP') {
             steps {
                 script {
-                    kubeconfig(credentialsId: 'k8-token', serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
+                    kubeconfig(credentialsId: 'k8-token', serverUrl: 'https://4962222215ED17DD73D52ED636B7E2B4.gr7.ap-south-1.eks.amazonaws.com') {
                         sh """ if ! kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}; then
                                 kubectl apply -f bankapp-service.yml -n ${KUBE_NAMESPACE}
                               fi
@@ -104,7 +104,7 @@ pipeline {
                         deploymentFile = 'app-deployment-green.yml'
                     }
 
-                    kubeconfig(credentialsId: 'k8-token', serverUrl: 'https://57A3219D1EB804DD4FA490F31DA0BD15.gr7.us-east-2.eks.amazonaws.com') {
+                    kubeconfig(credentialsId: 'k8-token', serverUrl: 'https://4962222215ED17DD73D52ED636B7E2B4.gr7.ap-south-1.eks.amazonaws.com') {
                         sh "kubectl apply -f ${deploymentFile} -n ${KUBE_NAMESPACE}"
                     }
                 }
